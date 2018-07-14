@@ -14,6 +14,10 @@ var cardsOpened = [];
 let moves = document.querySelector('.moves');
 let count=0;
 
+let timer = document.querySelector('.timer>span');
+var interval;
+var seconds = 0;
+
 const refresh = document.querySelector('.restart');
 let stars = document.getElementsByClassName('fa-star');
 console.log(stars);
@@ -55,6 +59,9 @@ function beginPlay(){
         }
     count = 0;
     moves.innerHTML=count;
+    clearInterval(interval);
+    seconds = 0;
+    timer.innerHTML= seconds;
        
 }
 function reset(){
@@ -80,6 +87,7 @@ document.body.onload = beginPlay();
  
 var displayCard = function(){
     movesRating();
+    runTimer();
     this.classList.toggle("open");
     this.classList.toggle("show");
     /*this.classList.toggle("disabled");*/
@@ -150,8 +158,17 @@ function movesRating()
         }
     else if(count > 16)
         stars[2].setAttribute("style","visibility: hidden;");
-    
-        
+           
+}
+
+
+
+function runTimer()
+{
+    interval = setInterval(function(){
+        seconds += 1;
+        timer.innerHTML=seconds;
+    },1000);
 }
  for(var i=0;i<cards.length;i++)
     {
