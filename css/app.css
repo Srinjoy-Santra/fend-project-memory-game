@@ -30,7 +30,8 @@ body {
 
 h1 {
     font-family: 'IBM Plex Serif', serif;/*'Open Sans', sans-serif;*/
-    font-weight: 300;
+    font-weight: bold;
+    
 }
 
 /*
