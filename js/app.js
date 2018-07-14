@@ -15,6 +15,8 @@ let moves = document.querySelector('.moves');
 let count=0;
 
 const refresh = document.querySelector('.restart');
+let stars = document.getElementsByClassName('fa-star');
+console.log(stars);
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -40,7 +42,7 @@ function shuffle(array) {
 
 function beginPlay(){
      for(var y=0; y<cards.length; y++)
-         cards[y].classList.remove("show", "open");
+         cards[y].classList.remove("show", "open","match");
     cards = shuffle(cards);
     
     /*console.log(shuffledCards);*/
@@ -59,7 +61,7 @@ function reset(){
     console.log('restarted');
     beginPlay();
 }
-refresh.onclick = reset(); /*addEventListener('click',reset());*/    
+refresh.addEventListener('click',beginPlay);  
 document.body.onload = beginPlay();
 
 
@@ -77,8 +79,7 @@ document.body.onload = beginPlay();
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)*/
  
 var displayCard = function(){
-    count = count + 1;
-    moves.innerHTML=count;
+    movesRating();
     this.classList.toggle("open");
     this.classList.toggle("show");
     /*this.classList.toggle("disabled");*/
@@ -137,7 +138,21 @@ function openCards(){
             
         }
 }
- 
+
+function movesRating()
+{
+    count = count + 1;
+    moves.innerHTML=count;
+    if(count > 28)
+        {
+            stars[1].setAttribute("style","visibility: hidden;");
+            stars[2].setAttribute("style","visibility: hidden;");
+        }
+    else if(count > 16)
+        stars[2].setAttribute("style","visibility: hidden;");
+    
+        
+}
  for(var i=0;i<cards.length;i++)
     {
         /*console.log(cards[i]);*/
