@@ -2,8 +2,6 @@
  * Create a list that holds all of your cards
  */
 
-
-
 let cards = document.getElementsByClassName('card');
 /*cards = [...cards];*/
 //console.log(cards);
@@ -17,6 +15,7 @@ let count=0;
 let timer = document.querySelector('.timer>span');
 var interval;
 var seconds = 0;
+let session = false;
 
 const refresh = document.querySelector('.restart');
 let stars = document.getElementsByClassName('fa-star');
@@ -60,8 +59,12 @@ function beginPlay(){
     count = 0;
     moves.innerHTML=count;
     clearInterval(interval);
+    clearTimeout(interval)
     seconds = 0;
     timer.innerHTML= seconds;
+    session = false;
+    for(var t=0; t<stars.length; t++)
+        stars[t].setAttribute("style","visibility: visible;");
        
 }
 function reset(){
@@ -87,7 +90,10 @@ document.body.onload = beginPlay();
  
 var displayCard = function(){
     movesRating();
-    runTimer();
+    if(!session)
+        runTimer();
+    if(cardsOpened.length === 1 && cardsOpened[0] === this && cardsOpened[0].classList.find("open","show"))
+        return;
     this.classList.toggle("open");
     this.classList.toggle("show");
     /*this.classList.toggle("disabled");*/
@@ -149,6 +155,7 @@ function openCards(){
 
 function movesRating()
 {
+
     count = count + 1;
     moves.innerHTML=count;
     if(count > 28)
@@ -165,6 +172,7 @@ function movesRating()
 
 function runTimer()
 {
+    session = true;
     interval = setInterval(function(){
         seconds += 1;
         timer.innerHTML=seconds;
@@ -173,8 +181,8 @@ function runTimer()
  for(var i=0;i<cards.length;i++)
     {
         /*console.log(cards[i]);*/
-        cards[i].addEventListener("dbclick",displayCard);
-        cards[i].addEventListener("dbclick",openCards);
+        /*cards[i].addEventListener("dbclick",displayCard);
+        cards[i].addEventListener("dbclick",openCards);*/
         cards[i].addEventListener("click",displayCard);
         cards[i].addEventListener("click",openCards);
     }
