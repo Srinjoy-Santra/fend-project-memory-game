@@ -91,10 +91,12 @@ h1 {
     text-align: left;
     width: 345px;
     margin-bottom: 10px;
+    padding: 5px;
+    border: 2px solid #64b3f4;
 }
 
 .score-panel .stars {
-    margin: 0;
+    margin: 10px;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
@@ -106,6 +108,12 @@ h1 {
 }
 
 .score-panel .restart {
+    margin: 10px;
     float: right;
     cursor: pointer;
 }
+.score-panel>div{
+    margin: 10px;
+}
+
+

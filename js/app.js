@@ -103,6 +103,25 @@ function matched(){
     cardsOpened[1].classList.add("match");
     cardsOpened[0].classList.remove("show", "open");
     cardsOpened[1].classList.remove("show", "open");
+    
+    console.log(cards.classList);
+    var allMatched=true;
+    for (var i=0;i<cards.length;i++)
+    {
+        allMatched = cards[i].classList.contains("match");
+        if(!allMatched)
+            return;
+    }
+    
+    if(allMatched)
+    {
+        clearInterval(interval);
+        clearTimeout(interval)
+        //seconds = 0;
+        //timer.innerHTML= seconds;
+        session = false;
+    }
+            
 }
 
 function flipCard(cardsOpened){
