@@ -1,32 +1,28 @@
-/*
- * Create a list that holds all of your cards
- */
 
+//Restart the game
+const refresh = document.querySelector('.restart');
+//holds all cards
 let cards = document.getElementsByClassName('card');
-
+//deck of all cards
 let deck = document.querySelector('.deck');
+//cards selected at a given time
 var cardsOpened = [];
-
+//counting number of moves
 let moves = document.querySelector('.moves');
 let count=0;
-
+//counting the time elapsed in a play
 let timer = document.querySelector('.timer>span');
 var interval;
 var seconds = 0;
 let session = false;
 
-const refresh = document.querySelector('.restart');
+//counting the number of stars
 let stars = document.getElementsByClassName('fa-star');
 let starCount = 3;
+//setting the modal values
 let stary = document.querySelector('.stary');
 let timey = document.querySelector('.timey');
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -43,7 +39,7 @@ function shuffle(array) {
     return array;
 }
 
-
+/* Start the game */
 function beginPlay(){
      for(var y=0; y<cards.length; y++)
          cards[y].classList.remove("show", "open","match","shake","wobble","animated");
@@ -67,27 +63,11 @@ function beginPlay(){
         stars[t].setAttribute("style","visibility: visible;");
        
 }
-function reset(){
-    console.log('restarted');
-    beginPlay();
-}
+
 refresh.addEventListener('click',beginPlay);  
 document.body.onload = beginPlay();
 
-
-
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)*/
- 
+/* Display the selected card */
 var displayCard = function(){
     movesRating();
     if(!session)
@@ -96,8 +76,9 @@ var displayCard = function(){
         return;
     this.classList.toggle("open");
     this.classList.toggle("show");
-    /*this.classList.toggle("disabled");*/
 }
+
+/* Carry card match operation */
 function matched(){
     cardsOpened[0].classList.add("match","wobble","animated");
     cardsOpened[1].classList.add("match","wobble","animated");
@@ -117,11 +98,8 @@ function matched(){
     {
         
         modal.setAttribute("style","display: block;");
-        //stary.innerHTML = starCount;
         timey.textContent = seconds;
         stary.textContent = starCount;
-        //seconds = 0;
-        //timer.innerHTML= seconds;
         clearInterval(interval);
         clearTimeout(interval);
         session = false;
@@ -129,25 +107,16 @@ function matched(){
             
 }
 
-function flipCard(cardsOpened){
-        console.log('We will rock you!'+cardsOpened);
-        
-        /*cardsOpened[0].classList.remove("show", "open", "unmatched");
-        cardsOpened[1].classList.remove("show", "open", "unmatched");*/
-        //enable();
-        
-    }
-
+/* Carry card unmatch operation */
 function unmatched(){
-    /*cardsOpened[0].classList.add("unmatched");
-    cardsOpened[1].classList.add("unmatched");*/
     console.log(cardsOpened);
     
     cardsOpened[0].classList.remove("show", "open","shake","animated");
     cardsOpened[1].classList.remove("show", "open","shake","animated");
-    //setTimeout(flipCard(cardsOpened),15000);
+    
 }
 
+/* Respond to selected cards */
 function openCards(){
     if(cardsOpened.length === 2)
         {
@@ -158,7 +127,6 @@ function openCards(){
     var icon = this.querySelector('i').classList;
     console.log(icon[1]);
     cardsOpened.push(this);
-    /*console.log(cardsOpened);*/
     if(cardsOpened.length === 2)
         {
             var fstr = cardsOpened[0].querySelector('i').classList;
@@ -180,6 +148,7 @@ function openCards(){
         }
 }
 
+/* Update the moves and the star ratings */
 function movesRating()
 {
 
@@ -197,8 +166,7 @@ function movesRating()
            
 }
 
-
-
+/* Compute time elapsed */
 function runTimer()
 {
     session = true;
@@ -209,9 +177,6 @@ function runTimer()
 }
  for(var i=0;i<cards.length;i++)
     {
-        /*console.log(cards[i]);*/
-        /*cards[i].addEventListener("dbclick",displayCard);
-        cards[i].addEventListener("dbclick",openCards);*/
         cards[i].addEventListener("click",displayCard);
         cards[i].addEventListener("click",openCards);
     }
@@ -243,21 +208,3 @@ replay.onclick = function()
     modal.style.display = "none";
     beginPlay();
 }
-/*let cardIndices= [
-                    [0,0],[0,1],[0,2],[0,3],
-                    [1,0],[1,1],[1,2],[1,3],
-                    [2,0],[2,1],[2,2],[2,3],
-                    [3,0],[3,1],[3,2],[3,3]
-                 ];
-
-let listOfIcons = [
-                    "fa fa-diamond",
-                    "fa fa-paper-plane-o",
-                    "fa fa-anchor",
-                    "fa fa-bolt",
-                    "fa fa-cube",
-                    "fa fa-leaf",
-                    "fa fa-bicycle",
-                    "fa fa-diamond",
-                    "fa fa-bomb",
-                    ];*/
