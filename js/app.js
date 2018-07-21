@@ -6,19 +6,19 @@ let cards = document.getElementsByClassName('card');
 //deck of all cards
 let deck = document.querySelector('.deck');
 //cards selected at a given time
-var cardsOpened = [];
+var cardsOpened;
 //counting number of moves
 let moves = document.querySelector('.moves');
-let count=0;
+let count;
 //counting the time elapsed in a play
 let timer = document.querySelector('.timer>span');
+let session;
 var interval;
-var seconds = 0;
-let session = false;
+var seconds;
 
 //counting the number of stars
 let stars = document.getElementsByClassName('fa-star');
-let starCount = 3;
+let starCount;
 //setting the modal values
 let stary = document.querySelector('.stary');
 let timey = document.querySelector('.timey');
@@ -44,7 +44,7 @@ function beginPlay(){
      for(var y=0; y<cards.length; y++)
          cards[y].classList.remove("show", "open","match","shake","wobble","animated");
     cards = shuffle(cards);
-    
+    cardsOpened = [];
     for(var y=0; y<cards.length; y++)
         {
             
@@ -53,6 +53,7 @@ function beginPlay(){
             
         }
     count = 0;
+    starCount = 0;
     moves.textContent=count;
     clearInterval(interval);
     clearTimeout(interval)
@@ -74,14 +75,16 @@ var displayCard = function(){
         runTimer();
     if(cardsOpened.length === 1 && cardsOpened[0] === this && cardsOpened[0].classList.contains("open","show"))
         return;
-    this.classList.toggle("open");
-    this.classList.toggle("show");
+    /*this.classList.toggle("open");
+    this.classList.toggle("show");*/
+    this.classList.add("show","open");
+    //openCards();
 }
 
 /* Carry card match operation */
 function matched(){
-    cardsOpened[0].classList.add("match","wobble","animated");
-    cardsOpened[1].classList.add("match","wobble","animated");
+    cardsOpened[0].classList.add("match","wobble","animated","disable");
+    cardsOpened[1].classList.add("match","wobble","animated","disable");
     cardsOpened[0].classList.remove("show", "open");
     cardsOpened[1].classList.remove("show", "open");
     
@@ -111,19 +114,27 @@ function matched(){
 function unmatched(){
     console.log(cardsOpened);
     
-    cardsOpened[0].classList.remove("show", "open","shake","animated");
-    cardsOpened[1].classList.remove("show", "open","shake","animated");
+    cardsOpened[0].classList.add("shake","animated","disable");
+    cardsOpened[1].classList.add("shake","animated","disable");
+    setTimeout(closeAfter, 1500,cardsOpened);
     
+}
+
+/* Close cards after a moment */
+function closeAfter(closeCards){
+        console.log(closeCards);
+        closeCards[0].classList.remove("show", "open","shake","animated","disable");
+        closeCards[1].classList.remove("show", "open","shake","animated","disable");
 }
 
 /* Respond to selected cards */
 function openCards(){
-    if(cardsOpened.length === 2)
+    /*if(cardsOpened.length === 2)
         {
-            displayCard;
-            unmatched();
-            cardsOpened=[];
-        }
+               
+                    unmatched();
+                    cardsOpened=[];
+        }*/
     var icon = this.querySelector('i').classList;
     console.log(icon[1]);
     cardsOpened.push(this);
@@ -140,8 +151,11 @@ function openCards(){
                 }
             else
                 {
-                    cardsOpened[0].classList.add("shake","animated");
-                    cardsOpened[1].classList.add("shake","animated");
+                    
+                    
+                    unmatched();
+                    cardsOpened=[];
+                    
                 }
                 
             

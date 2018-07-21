@@ -2,6 +2,12 @@
 This game tests your memory. DUH!?
 You have to match cards from a deck of 16 cards.
 
+## Dependency
+* animate.css
+* google fonts
+* JS
+* font awesome
+
 ## Instructions
 * Select card
 * Guess a matching card

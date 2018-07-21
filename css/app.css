@@ -59,6 +59,10 @@ html {
      transform: rotateY(0);
      background: #f3cd05;
      cursor: default;
+     
+}
+.deck .card.disable {
+    pointer-events: none;
 }
  .deck .card.show {
      font-size: 33px;
