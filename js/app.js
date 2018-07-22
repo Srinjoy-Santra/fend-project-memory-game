@@ -6,15 +6,15 @@ let cards = document.getElementsByClassName('card');
 //deck of all cards
 let deck = document.querySelector('.deck');
 //cards selected at a given time
-var cardsOpened;
+let cardsOpened;
 //counting number of moves
 let moves = document.querySelector('.moves');
 let count;
 //counting the time elapsed in a play
 let timer = document.querySelector('.timer>span');
 let session;
-var interval;
-var seconds;
+let interval;
+let seconds;
 
 //counting the number of stars
 let stars = document.getElementsByClassName('fa-star');
@@ -26,7 +26,7 @@ let timey = document.querySelector('.timey');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -41,11 +41,11 @@ function shuffle(array) {
 
 /* Start the game */
 function beginPlay(){
-     for(var y=0; y<cards.length; y++)
+     for(let y=0; y<cards.length; y++)
          cards[y].classList.remove("show", "open","match","shake","wobble","animated");
     cards = shuffle(cards);
     cardsOpened = [];
-    for(var y=0; y<cards.length; y++)
+    for(let y=0; y<cards.length; y++)
         {
             
             console.log(cards[y]);
@@ -60,7 +60,7 @@ function beginPlay(){
     seconds = 0;
     timer.textContent= seconds;
     session = false;
-    for(var t=0; t<stars.length; t++)
+    for(let t=0; t<stars.length; t++)
         stars[t].setAttribute("style","visibility: visible;");
        
 }
@@ -69,7 +69,7 @@ refresh.addEventListener('click',beginPlay);
 document.body.onload = beginPlay();
 
 /* Display the selected card */
-var displayCard = function(){
+let displayCard = function(){
     movesRating();
     if(!session)
         runTimer();
@@ -77,20 +77,20 @@ var displayCard = function(){
         return;
     /*this.classList.toggle("open");
     this.classList.toggle("show");*/
-    this.classList.add("show","open");
+    this.classList.add("show","open","disable");
     //openCards();
 }
 
 /* Carry card match operation */
 function matched(){
-    cardsOpened[0].classList.add("match","wobble","animated","disable");
-    cardsOpened[1].classList.add("match","wobble","animated","disable");
+    cardsOpened[0].classList.add("match","wobble","animated");
+    cardsOpened[1].classList.add("match","wobble","animated");
     cardsOpened[0].classList.remove("show", "open");
     cardsOpened[1].classList.remove("show", "open");
     
     console.log(cards.classList);
-    var allMatched=true;
-    for (var i=0;i<cards.length;i++)
+    let allMatched=true;
+    for (let i=0;i<cards.length;i++)
     {
         allMatched = cards[i].classList.contains("match");
         if(!allMatched)
@@ -114,8 +114,8 @@ function matched(){
 function unmatched(){
     console.log(cardsOpened);
     
-    cardsOpened[0].classList.add("shake","animated","disable");
-    cardsOpened[1].classList.add("shake","animated","disable");
+    cardsOpened[0].classList.add("shake","animated");
+    cardsOpened[1].classList.add("shake","animated");
     setTimeout(closeAfter, 1500,cardsOpened);
     
 }
@@ -135,13 +135,13 @@ function openCards(){
                     unmatched();
                     cardsOpened=[];
         }*/
-    var icon = this.querySelector('i').classList;
+    let icon = this.querySelector('i').classList;
     console.log(icon[1]);
     cardsOpened.push(this);
     if(cardsOpened.length === 2)
         {
-            var fstr = cardsOpened[0].querySelector('i').classList;
-            var lstr = cardsOpened[1].querySelector('i').classList;
+            let fstr = cardsOpened[0].querySelector('i').classList;
+            let lstr = cardsOpened[1].querySelector('i').classList;
             
             if(fstr[1] === lstr[1])
                 {
@@ -189,7 +189,7 @@ function runTimer()
         timer.innerHTML=seconds;
     },1000);
 }
- for(var i=0;i<cards.length;i++)
+ for(let i=0;i<cards.length;i++)
     {
         cards[i].addEventListener("click",displayCard);
         cards[i].addEventListener("click",openCards);
@@ -197,13 +197,13 @@ function runTimer()
  
 
 // Get the modal
-var modal = document.getElementById('myModal');
+let modal = document.getElementById('myModal');
 
 // Get the button that opens the modal
-var replay = document.getElementById("replay");
+let replay = document.getElementById("replay");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+let span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
