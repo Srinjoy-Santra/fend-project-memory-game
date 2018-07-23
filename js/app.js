@@ -42,7 +42,7 @@ function shuffle(array) {
 /* Start the game */
 function beginPlay(){
      for(let y=0; y<cards.length; y++)
-         cards[y].classList.remove("show", "open","match","shake","wobble","animated");
+         cards[y].classList.remove("show", "open","match","shake","wobble","animated","disable");
     cards = shuffle(cards);
     cardsOpened = [];
     for(let y=0; y<cards.length; y++)
@@ -54,6 +54,7 @@ function beginPlay(){
         }
     count = 0;
     starCount = 0;
+    cardsOpened=[];  
     moves.textContent=count;
     clearInterval(interval);
     clearTimeout(interval)
@@ -70,7 +71,6 @@ document.body.onload = beginPlay();
 
 /* Display the selected card */
 let displayCard = function(){
-    movesRating();
     if(!session)
         runTimer();
     if(cardsOpened.length === 1 && cardsOpened[0] === this && cardsOpened[0].classList.contains("open","show"))
@@ -146,18 +146,14 @@ function openCards(){
             if(fstr[1] === lstr[1])
                 {
                     console.log('Cards Matched!!');
-                    matched();
-                    cardsOpened=[];
+                    matched();   
                 }
             else
                 {
-                    
-                    
-                    unmatched();
-                    cardsOpened=[];
-                    
+                    unmatched();                
                 }
-                
+            movesRating();
+            cardsOpened=[];  
             
         }
 }
@@ -175,8 +171,10 @@ function movesRating()
             stars[2].setAttribute("style","visibility: hidden;");
         }
     else if(count > 16)
-        starCount = 2;
-        stars[2].setAttribute("style","visibility: hidden;");
+        {
+            starCount = 2;
+            stars[2].setAttribute("style","visibility: hidden;");
+        }
            
 }
 
